@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@pages/*": ["main/pages/*"],
+      "@helpers/*": ["main/helpers/*"],
+      "@tests/*": ["test/*"]
+    },
+    "types": ["node", "@playwright/test"],
+    "resolveJsonModule": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
