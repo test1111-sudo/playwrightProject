@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import { HomePage } from '../main/pages/homePage';
 import { ElementsPage } from '../main/pages/elementsPage';
 import { Assertions } from '../main/helpers/assertions';
@@ -134,4 +134,56 @@ test.describe('DemoQA elements page Tests', () => {
     await asserts.verifyElementVisible(elements.rightClickMessage);
     await asserts.verifyElementVisible(elements.dynamicClickMessage);
   });
+
+
+
+  test('Verify link navigation and responses', async ({ page }) => {
+    const home = new HomePage(page);
+    const elements = new ElementsPage(page);
+    const asserts = new Assertions();
+
+    await home.navigateTo(testData.baseUrl);
+    await home.goToElements();
+    await elements.linksMenu.click();
+
+    const [newPage] = await Promise.all([
+      page.waitForEvent('popup'),
+      elements.homeLink.click()
+    ]);
+    await newPage.waitForLoadState();
+    await asserts.verifyRedirectedUrl('https://demoqa.com/', newPage.url());
+    await newPage.close();
+    await page.bringToFront();
+
+    await elements.createdLink.click();
+    await page.waitForTimeout(1000); // wait for response
+    await asserts.verifyResponseContains(201, 'Created');
+   
+
+    await elements.noContentLink.click();
+    await page.waitForTimeout(1000); // wait for response
+    await asserts.verifyResponseContains(204,   'No Content');
+  
+    await elements.movedLink.click();
+    await page.waitForTimeout(1000); // wait for response
+    await asserts.verifyResponseContains(301, 'Moved Permanently');
+
+    await elements.badRequestLink.click();
+    await page.waitForTimeout(1000);
+    await asserts.verifyResponseContains(400, 'Bad Request');
+
+    await elements.unauthorizedLink.click();
+    await page.waitForTimeout(1000);
+    await asserts.verifyResponseContains(401, 'Unauthorized');
+
+    await elements.forbiddenLink.click();
+    await page.waitForTimeout(1000);
+    await asserts.verifyResponseContains(403, 'Forbidden');
+
+    await elements.notFoundLink.click();
+    await page.waitForTimeout(1000);
+    await asserts.verifyResponseContains(404, 'Not Found');
+  });
+
 });
+

@@ -15,4 +15,12 @@ export class Assertions {
   async verifyElementDisabled(locator: Locator) {
     await expect(locator).toBeDisabled();
   }
+  async verifyRedirectedUrl(expectedUrl: string, actualUrl: string) {
+    expect(expectedUrl).toBe(expectedUrl);
+  }
+  async verifyResponseContains(responseStatus: number, responseName: string){
+    expect(responseStatus).toBe(responseStatus);  
+    expect(responseName).toContain(responseName);
+  }
+
 }

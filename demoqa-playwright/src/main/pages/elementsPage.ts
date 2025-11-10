@@ -58,6 +58,24 @@ readonly doubleClickMessage: Locator;
 readonly rightClickMessage: Locator;
 readonly dynamicClickMessage: Locator;
 
+//Links locators
+readonly linksMenu: Locator;
+readonly homeLink: Locator;
+readonly createdLink: Locator;
+readonly createdLinkResponse: Locator;
+readonly noContentLink: Locator;
+readonly noContentLinkResponse: Locator;
+readonly movedLink: Locator;
+readonly movedLinkResponse: Locator;
+readonly badRequestLink: Locator;
+readonly badRequestLinkResponse: Locator;
+readonly unauthorizedLink: Locator;
+readonly unauthorizedLinkResponse: Locator;
+readonly forbiddenLink: Locator;
+readonly forbiddenLinkResponse: Locator;
+readonly notFoundLink: Locator;
+readonly notFoundLinkResponse: Locator;
+
   constructor(page: Page) {
     super(page);
 
@@ -119,13 +137,29 @@ readonly dynamicClickMessage: Locator;
     this.doubleClickMessage = page.locator('#doubleClickMessage');
     this.rightClickMessage = page.locator('#rightClickMessage');
     this.dynamicClickMessage = page.locator('#dynamicClickMessage');
-    }
+    
 
 
 
+  // 🔹 Links locators
+    this.linksMenu = page.locator('//span[normalize-space(text())="Links"]'); //only xpath works here
+    this.homeLink = page.locator('#simpleLink');
+    this.createdLink = page.locator('#created');
+    this.createdLinkResponse = page.locator('#createdLink');
+    this.noContentLink = page.locator('#no-content');
+    this.noContentLinkResponse = page.locator('#noContentLink');
+    this.movedLink = page.locator('#moved');
+    this.movedLinkResponse = page.locator('#movedLink');
+    this.badRequestLink = page.locator('#bad-request');
+    this.badRequestLinkResponse = page.locator('#badRequestLink');
+    this.unauthorizedLink = page.locator('#unauthorized');
+    this.unauthorizedLinkResponse = page.locator('#unauthorizedLink');
+    this.forbiddenLink = page.locator('#forbidden');
+    this.forbiddenLinkResponse = page.locator('#forbiddenLink');
+    this.notFoundLink = page.locator('#invalid-url');
+    this.notFoundLinkResponse = page.locator('#notFoundLink');
 
-
-
+  }
   // ✅ Use method arguments instead of hardcoded strings
     async fillTextBox(name: string, email: string, currentAddress: string, permanentAddress: string) {
       await this.textBoxMenu.click();

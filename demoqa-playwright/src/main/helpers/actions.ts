@@ -9,4 +9,5 @@ export class Actions extends BaseHelp {
   async enterText(locator: Locator, text: string) {
     await this.type(locator, text);
   }
+  
 }
